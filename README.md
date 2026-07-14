@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Vendora - Premium Restoran Yönetim Sistemi
 
-## Getting Started
+Vendora, modern restoranların (POS, Mutfak Ekranı, Stok Takibi, Kurye Yönetimi, vb.) ihtiyaç duyduğu tüm yazılım çözümlerini tek bir panelde birleştiren yeni nesil bir restoran yönetim sistemidir. 
 
-First, run the development server:
+Bu proje, Vendora'nın potansiyel müşterilerine sunduğu premium hizmeti, aynı premium hissiyatı veren son derece modern, şık ve çok dilli (i18n) bir **Landing Page (Tanıtım Web Sitesi)** arayüzü ile sunmak amacıyla geliştirilmiştir.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Projenin Amacı ve Felsefesi
+Bu proje yapılırken sıradan, sıkıcı kurumsal web sitelerinden uzaklaşılarak; **"Minimalizm, Bol Beyaz Alan (Nefes Alan Tasarım), Siyah/Karanlık Tema ve Keskin Kontrast"** prensipleri benimsenmiştir.
+- **Neden Yapıldı?** Potansiyel müşterilere (restoran sahiplerine) sadece özellikleri okutmak değil, uygulamanın ne kadar hızlı ve kusursuz çalıştığını "hisssettirmek" için.
+- **Nasıl Yapıldı?** Next.js App Router mimarisi üzerinde, Tailwind CSS'in sağladığı esneklik ve Framer Motion'ın sunduğu akıcı mikro-animasyonlar birleştirilerek.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 💻 Kullanılan Teknolojiler
+- **Framework:** Next.js (App Router) & React
+- **Stil & Tasarım:** Tailwind CSS
+- **Animasyonlar:** Framer Motion (Scroll efektleri, yumuşak geçişler)
+- **İkonlar:** Lucide React
+- **Çoklu Dil (i18n):** Özel yazılmış `LanguageContext` altyapısı sayesinde sayfa yenilenmeden anlık çalışan dil değiştirme sistemi (Türkçe, İngilizce, Rusça, Almanca, Fransızca).
+- **Paket Yöneticisi:** npm
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📂 Sayfalar ve Görevleri
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Proje 3 temel sayfadan ve yardımcı bileşenlerden oluşur:
 
-## Learn More
+### 1. Ana Sayfa (`/app/page.tsx`)
+Ziyaretçinin siteye girdiği anda etkileneceği ana vitrin.
+- **Hero Bölümü:** Gerçek dashboard görseli ve iddialı bir giriş metni.
+- **Timeline:** Müşterinin restorana girişinden, raporların oluşmasına kadar geçen sipariş akışının dikey, animasyonlu bir zaman çizelgesi.
+- **Pricing Calculator (Fiyatlandırma):** Kullanıcıların ihtiyaç duyduğu entegrasyonları (Yemek Sepeti, Getir, vb.) açıp kapatarak kendi aylık/yıllık fiyatlarını hesaplayabildiği dinamik bileşen.
 
-To learn more about Next.js, take a look at the following resources:
+### 2. Ürün Sayfası (`/app/urun/page.tsx`)
+Ürünün modüllerini sade ve geniş bir biçimde anlatan sayfa.
+- Klasik ama modern bir "Z-Pattern" (bir sağda resim solda yazı, bir solda resim sağda yazı) yerleşimi kullanır.
+- Görseller büyük, metinler oldukça okunabilirdir.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 3. Özellikler Sayfası (`/app/ozellikler/page.tsx`)
+Teknik detaylara inmek isteyen müşteriler için hazırlanan, tasarımsal olarak en zengin sayfalardan biri.
+- **Bento Box Grid:** Modern arayüz tasarımının son trendi olan "Bento Box" (farklı boyutlardaki kutucukların asimetrik ızgarası) kullanılmıştır. POS, Mutfak, Kurye ve Stok özellikleri buralarda şık kartlarla anlatılır.
+- **Deep Dive (Matris):** Tüm modüllerin içerdiği ufak teknik alt özelliklerin bir checklist (kontrol listesi) halinde sunulduğu veri tablosu.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🧩 Önemli Bileşenler (Components)
+- `Header.tsx` & `Footer.tsx`: Sitenin navigasyonunu ve global dil seçicisini barındırır.
+- `LanguageContext.tsx`: Sitenin beyni konumundaki çoklu dil (i18n) yöneticisi. LocalStorage ile kullanıcının son seçtiği dili hatırlar, varsayılan olarak Türkçe başlatır. SEO uyumluluğunu bozmadan (SSR uyumlu) çalışır.
+- `PricingCalculator.tsx`: Ana sayfadaki dinamik fiyat hesaplama motoru.
+- `CallbackModal.tsx`: "Sizi Arayalım" butonuna basıldığında açılan şık iletişim penceresi.
 
-## Deploy on Vercel
+## ⚙️ Kurulum ve Geliştirme
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Projeyi yerel bilgisayarınızda çalıştırmak için aşağıdaki adımları izleyin:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Bağımlılıkları Yükleyin:**
+   ```bash
+   npm install
+   ```
+
+2. **Geliştirme Sunucusunu Başlatın:**
+   ```bash
+   npm run dev
+   ```
+
+3. **Görüntüleyin:**
+   Tarayıcınızda `http://localhost:3000` adresine gidin.
+
+---
+*Not: Bu README.md dosyası, projenin vizyonunu, mimarisini ve kod yapısını hızlıca kavramak için hazırlanmıştır.*
