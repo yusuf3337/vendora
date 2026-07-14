@@ -4,6 +4,7 @@ import Image from "next/image";
 import ScrollSequence from "@/components/ScrollSequence";
 import Timeline from "@/components/Timeline";
 import PricingCalculator from "@/components/PricingCalculator";
+import QRShowcase from "@/components/QRShowcase";
 import { ArrowRight, CheckCircle2, PlayCircle, Navigation } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -82,6 +83,9 @@ export default function Home() {
 
       {/* 3. SCROLL ANIMATION SEQUENCE */}
       <ScrollSequence />
+
+      {/* 3.5 QR SHOWCASE */}
+      <QRShowcase />
 
       {/* 4. WORKFLOW TIMELINE */}
       <Timeline />

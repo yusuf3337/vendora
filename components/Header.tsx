@@ -20,6 +20,8 @@ const languages: { code: LanguageCode; name: string; flag: string }[] = [
 export default function Header() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const langRef = useRef<HTMLDivElement>(null);
   const { language, setLanguage, t } = useLanguage();
 
@@ -36,9 +38,25 @@ export default function Header() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Handle scroll to hide/show header
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
+
   return (
     <>
-      <header className="fixed top-0 w-full z-50 flex flex-col">
+      <header className={cn("fixed top-0 w-full z-50 flex flex-col transition-transform duration-300", isVisible ? "translate-y-0" : "-translate-y-full")}>
         {/* TOPBAR */}
         <div className="bg-zinc-900 text-white text-xs border-b border-zinc-800 relative z-50">
           <div className="max-w-7xl mx-auto px-6 h-10 flex items-center justify-between">
@@ -56,7 +74,7 @@ export default function Header() {
 
             {/* Right Actions */}
             <div className="flex items-center gap-4 h-full">
-              <button 
+              <button
                 onClick={() => setIsModalOpen(true)}
                 className="flex items-center gap-2 hover:text-accent transition-colors h-full px-2"
               >
@@ -68,7 +86,7 @@ export default function Header() {
 
               {/* Language Switcher */}
               <div className="relative h-full flex items-center" ref={langRef}>
-                <button 
+                <button
                   onClick={() => setIsLangOpen(!isLangOpen)}
                   className="flex items-center gap-1.5 hover:text-accent transition-colors h-full px-2"
                 >
@@ -90,8 +108,8 @@ export default function Header() {
                           }}
                           className={cn(
                             "w-full flex items-center gap-2 px-4 py-2 text-sm text-left transition-colors",
-                            activeLang.code === lang.code 
-                              ? "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white font-medium" 
+                            activeLang.code === lang.code
+                              ? "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white font-medium"
                               : "text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 hover:text-zinc-900 dark:hover:text-white"
                           )}
                         >
@@ -111,23 +129,23 @@ export default function Header() {
         <div className="bg-background/80 backdrop-blur-md border-b border-border shadow-sm relative z-40">
           <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <Link href="/" className="flex items-center">
-              <Image src="/images/logo.png" alt="Vendora Logo" width={200} height={56} className="h-12 w-auto" priority />
+              <img src="/images/logo.png" alt="Logo" className="h-20" />
             </Link>
-            <nav className="hidden md:flex items-center gap-3">
-              <Link href="/urun" className="bg-accent text-white px-5 py-2 rounded-full text-sm font-semibold shadow-lg hover:shadow-[0_0_20px_rgba(234,88,12,0.4)] hover:-translate-y-0.5 transition-all duration-300">
+            <nav className="hidden md:flex items-center gap-6">
+              <Link href="/urun" className="text-sm font-medium text-zinc-600 hover:text-foreground transition-colors">
                 {t("header.product")}
               </Link>
-              <Link href="/ozellikler" className="bg-accent text-white px-5 py-2 rounded-full text-sm font-semibold shadow-lg hover:shadow-[0_0_20px_rgba(234,88,12,0.4)] hover:-translate-y-0.5 transition-all duration-300">
+              <Link href="/ozellikler" className="text-sm font-medium text-zinc-600 hover:text-foreground transition-colors">
                 {t("header.features")}
               </Link>
-              <a href="/#fiyatlandirma" className="bg-accent text-white px-5 py-2 rounded-full text-sm font-semibold shadow-lg hover:shadow-[0_0_20px_rgba(234,88,12,0.4)] hover:-translate-y-0.5 transition-all duration-300">
+              <a href="/#fiyatlandirma" className="text-sm font-medium text-zinc-600 hover:text-foreground transition-colors">
                 {t("header.pricing")}
               </a>
             </nav>
             <div className="flex items-center gap-2 md:gap-4">
-              <button className="px-4 py-2 rounded-full text-sm font-medium text-foreground hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+              <Link href="/login" className="px-4 py-2 rounded-full text-sm font-medium text-foreground hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
                 {t("header.login")}
-              </button>
+              </Link>
               <button className="bg-accent text-white px-6 py-2.5 rounded-full text-sm font-semibold shadow-lg hover:shadow-[0_0_20px_rgba(234,88,12,0.4)] hover:-translate-y-0.5 transition-all duration-300">
                 {t("header.tryFree")}
               </button>

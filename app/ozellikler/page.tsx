@@ -196,7 +196,7 @@ export default function FeaturesPage() {
 
         {/* CTA SECTION */}
         <div className="mt-32 mb-20 bg-accent text-white rounded-4xl p-10 md:p-16 text-center shadow-2xl relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-accent opacity-50 mix-blend-multiply" />
+          <div className="absolute inset-0 bg-linear-to-r from-orange-600 to-accent opacity-50 mix-blend-multiply" />
           <div className="relative z-10 max-w-2xl mx-auto">
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-8 leading-tight">{t("featuresPage.ctaTitle")}</h2>
             <button className="bg-white text-accent px-8 py-4 rounded-[3rem] text-lg font-semibold hover:scale-105 transition-transform shadow-xl">
