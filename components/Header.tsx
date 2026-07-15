@@ -4,6 +4,7 @@ import Image from "next/image";
 
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { Mail, Phone, PhoneCall, ChevronDown } from "lucide-react";
 import CallbackModal from "./CallbackModal";
 import { cn } from "@/lib/utils";
@@ -18,6 +19,7 @@ const languages: { code: LanguageCode; name: string; flag: string }[] = [
 ];
 
 export default function Header() {
+  const pathname = usePathname();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
@@ -53,6 +55,10 @@ export default function Header() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
+
+  if (pathname?.startsWith("/demo")) {
+    return null;
+  }
 
   return (
     <>

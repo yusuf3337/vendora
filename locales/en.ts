@@ -57,6 +57,11 @@ const en = {
       f1: "Live Status Tracking",
       f2: "Detailed Branch Reports",
       f3: "Centralized Inventory Control"
+    },
+    qr: {
+      scanTitle: "Try it with your phone",
+      scanDesc: "Open your camera, scan the QR code and experience the menu of the selected restaurant instantly on your phone!",
+      openLink: "Open in Browser →"
     }
   },
   pricing: {
@@ -138,6 +143,40 @@ const en = {
     deepDiveTitle: "In-depth Analysis of All Features",
     ctaTitle: "Take the first step for flawless operation.",
     ctaButton: "Start Now"
+  },
+  demoMenu: {
+    callWaiter: "Call Waiter",
+    payTable: "Pay Bill",
+    addToCart: "Add to Cart",
+    cartTitle: "Your Order",
+    emptyCart: "Select and add delicious items from the menu",
+    waiterCalled: "Waiter called! (Table 4)",
+    searchPlaceholder: "Search food or category...",
+    total: "Total",
+    currency: "₺",
+    added: "Added",
+    callSuccess: "Request Sent",
+    paymentSuccess: "Payment request received! Table 4.",
+    choosePayment: "Choose Payment Method",
+    card: "Pay with Card at Table",
+    cash: "Pay with Cash at Table",
+    close: "Close",
+    backToHome: "Back to Home",
+    onlineCard: "Online Credit Card",
+    onlineCardDesc: "Pay securely in seconds without leaving your table.",
+    cardNo: "Card Number",
+    cardNoPlaceholder: "0000 0000 0000 0000",
+    cardHolder: "Cardholder Name",
+    cardHolderPlaceholder: "John Doe",
+    expiry: "MM/YY",
+    cvv: "CVV",
+    payButton: "Complete Payment ({amount})",
+    processingPayment: "Processing Payment...",
+    securingConnection: "3D Secure banking authentication in progress...",
+    paymentSuccessTitle: "Payment Successful!",
+    paymentSuccessDesc: "Table 4 bill has been successfully paid. Enjoy your meal!",
+    itemCount: "{count} items",
+    copied: "Menu link copied!"
   }
 };
 

@@ -33,7 +33,7 @@ export default function ScrollSequence() {
           {screens.map((screen, index) => {
             const start = index / screens.length;
             const end = (index + 1) / screens.length;
-            
+
             // Fade in and out
             // eslint-disable-next-line react-hooks/rules-of-hooks
             const opacity = useTransform(

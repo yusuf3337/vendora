@@ -57,6 +57,11 @@ const tr = {
       f1: "Canlı Durum Takibi",
       f2: "Şube Bazlı Detaylı Raporlar",
       f3: "Merkezi Stok Kontrolü"
+    },
+    qr: {
+      scanTitle: "Telefonunuzla Deneyin",
+      scanDesc: "Kameranızı açıp QR kodu taratın, seçili restoranın menüsünü kendi telefonunuzda anında deneyimleyin!",
+      openLink: "Tarayıcıda Aç →"
     }
   },
   pricing: {
@@ -138,6 +143,40 @@ const tr = {
     deepDiveTitle: "Tüm Özelliklerin Derinlemesine Analizi",
     ctaTitle: "Kusursuz operasyon için ilk adımı atın.",
     ctaButton: "Hemen Başlayın"
+  },
+  demoMenu: {
+    callWaiter: "Garson Çağır",
+    payTable: "Ödeme Yap",
+    addToCart: "Sepete Ekle",
+    cartTitle: "Siparişiniz",
+    emptyCart: "Menüden lezzetli ürünler seçip ekleyin",
+    waiterCalled: "Garson çağrıldı! (Masa 4)",
+    searchPlaceholder: "Ürün veya kategori ara...",
+    total: "Toplam",
+    currency: "₺",
+    added: "Eklendi",
+    callSuccess: "Çağrı Gönderildi",
+    paymentSuccess: "Ödeme talebi alındı! Masa 4.",
+    choosePayment: "Ödeme Türü Seçin",
+    card: "Masada Kredi Kartı",
+    cash: "Masada Nakit",
+    close: "Kapat",
+    backToHome: "Ana Sayfaya Dön",
+    onlineCard: "Online Kredi Kartı",
+    onlineCardDesc: "Masadan kalkmadan saniyeler içinde güvenli ödeme yapın.",
+    cardNo: "Kart Numarası",
+    cardNoPlaceholder: "0000 0000 0000 0000",
+    cardHolder: "Kart Üzerindeki İsim",
+    cardHolderPlaceholder: "Ad Soyad",
+    expiry: "AA/YY",
+    cvv: "CVV",
+    payButton: "Ödemeyi Tamamla ({amount})",
+    processingPayment: "Ödeme İşleniyor...",
+    securingConnection: "3D Secure güvenli banka doğrulaması yapılıyor...",
+    paymentSuccessTitle: "Ödeme Başarılı!",
+    paymentSuccessDesc: "Masa 4 hesabı başarıyla tahsil edilmiştir. Afiyet olsun!",
+    itemCount: "{count} ürün",
+    copied: "Menü bağlantısı kopyalandı!"
   }
 };
 

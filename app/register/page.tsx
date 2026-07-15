@@ -87,7 +87,7 @@ export default function RegisterPage() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/90 via-zinc-900/80 to-zinc-900/40 backdrop-blur-[2px]" />
+        <div className="absolute inset-0 bg-linear-to-r from-zinc-950/90 via-zinc-900/80 to-zinc-900/40 backdrop-blur-[2px]" />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 w-full relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8 py-10 lg:py-20">
@@ -140,7 +140,7 @@ export default function RegisterPage() {
 
         {/* Right Content - Register Card */}
         <div className="w-full max-w-[540px]">
-          <div className="bg-white rounded-[2rem] p-6 md:p-10 shadow-2xl h-[90vh] lg:h-auto overflow-y-auto">
+          <div className="bg-white rounded-4xl p-6 md:p-10 shadow-2xl h-[90vh] lg:h-auto overflow-y-auto">
 
             {/* Top Bar of the Card */}
             <div className="flex items-center justify-between mb-8">
