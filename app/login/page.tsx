@@ -2,9 +2,50 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Mail, Lock, HeadphonesIcon, Globe, Monitor, Apple, Play } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { Mail, Lock, HeadphonesIcon, Globe, Monitor, Apple, Play, ChevronDown } from "lucide-react";
+import { useLanguage, LanguageCode } from "@/contexts/LanguageContext";
+import { cn } from "@/lib/utils";
+
+const languages: { code: LanguageCode; name: string; flag: string }[] = [
+  { code: "tr", name: "Türkçe", flag: "🇹🇷" },
+  { code: "en", name: "English", flag: "🇬🇧" },
+  { code: "ru", name: "Русский", flag: "🇷🇺" },
+  { code: "de", name: "Deutsch", flag: "🇩🇪" },
+  { code: "fr", name: "Français", flag: "🇫🇷" },
+];
+
+const promoTexts = [
+  "Güçlü altyapı, dinamik QR menüler ve kusursuz kurye takibi...\nİşletmenizi yönetmenin en kolay ve en modern hali. Sadece bir yazılım değil,\nişinizin yeni dijital gücü.",
+  "Gelişmiş raporlama, detaylı stok yönetimi ve anlık bildirimler...\nRestoranınızın her anını her yerden kontrol edin. Operasyonlarınızı hızlandıran akıllı çözüm.",
+  "Sorunsuz entegrasyonlar, kullanıcı dostu arayüz ve 7/24 kesintisiz destek...\nSatışlarınızı artırırken müşteri memnuniyetini zirveye taşıyın."
+];
 
 export default function LoginPage() {
+  const { language, setLanguage } = useLanguage();
+  const [isLangOpen, setIsLangOpen] = useState(false);
+  const langRef = useRef<HTMLDivElement>(null);
+  const [promoIndex, setPromoIndex] = useState(0);
+
+  const activeLang = languages.find((l) => l.code === language) || languages[0];
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (langRef.current && !langRef.current.contains(event.target as Node)) {
+        setIsLangOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setPromoIndex((prev) => (prev + 1) % promoTexts.length);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <div className="min-h-screen flex items-center relative overflow-hidden bg-zinc-900">
 
@@ -31,11 +72,21 @@ export default function LoginPage() {
             İşinizi <br />
             otomatikleştirin
           </h1>
-          <p className="text-lg md:text-xl text-zinc-300 leading-relaxed font-medium mb-12 max-w-xl">
-            Güçlü altyapı, dinamik QR menüler ve kusursuz kurye takibi...
-            İşletmenizi yönetmenin en kolay ve en modern hali. Sadece bir yazılım değil,
-            işinizin yeni dijital gücü.
-          </p>
+          <div className="relative min-h-[120px] mb-12 max-w-xl">
+            {promoTexts.map((text, idx) => (
+              <p
+                key={idx}
+                className={cn(
+                  "absolute inset-0 text-lg md:text-xl text-zinc-300 leading-relaxed font-medium transition-all duration-700 ease-in-out whitespace-pre-line",
+                  idx === promoIndex
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-4 pointer-events-none"
+                )}
+              >
+                {text}
+              </p>
+            ))}
+          </div>
 
           <div className="mt-12 pt-8 border-t border-zinc-700/50">
             <p className="text-zinc-400 font-semibold tracking-widest text-sm mb-6 uppercase">
@@ -64,8 +115,40 @@ export default function LoginPage() {
 
             {/* Top Bar of the Card */}
             <div className="flex items-center justify-between mb-8">
-              <div className="w-10 h-8 rounded border border-zinc-200 flex items-center justify-center text-lg shadow-sm">
-                🇹🇷
+              {/* Language Switcher */}
+              <div className="relative" ref={langRef}>
+                <button
+                  onClick={() => setIsLangOpen(!isLangOpen)}
+                  className="w-16 h-10 rounded-xl border border-zinc-200 flex items-center justify-between px-2.5 text-lg shadow-sm hover:border-accent hover:bg-zinc-50 transition-colors bg-white z-20 relative"
+                >
+                  <span>{activeLang.flag}</span>
+                  <ChevronDown className="w-4 h-4 text-zinc-400" />
+                </button>
+
+                {isLangOpen && (
+                  <ul className="absolute top-full left-0 mt-2 w-36 bg-white border border-zinc-200 rounded-xl shadow-xl overflow-hidden py-1.5 z-50">
+                    {languages.map((lang) => (
+                      <li key={lang.code}>
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setLanguage(lang.code);
+                            setIsLangOpen(false);
+                          }}
+                          className={cn(
+                            "w-full flex items-center gap-3 px-4 py-2 text-sm text-left transition-colors",
+                            activeLang.code === lang.code
+                              ? "bg-zinc-50 text-zinc-900 font-semibold"
+                              : "text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900"
+                          )}
+                        >
+                          <span className="text-lg">{lang.flag}</span>
+                          {lang.name}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
               <div className="flex items-center gap-3">
                 <div className="text-right">
@@ -131,7 +214,7 @@ export default function LoginPage() {
             </form>
 
             <div className="mt-8 text-center text-sm text-zinc-500 font-medium">
-              Hesabınız yok mu? <a href="#" className="text-[#f98b3f] font-bold hover:text-[#eb7a2e] transition-colors">Kayıt olun</a>
+              Hesabınız yok mu? <Link href="/register" className="text-[#f98b3f] font-bold hover:text-[#eb7a2e] transition-colors">Kayıt olun</Link>
             </div>
 
           </div>

@@ -132,18 +132,18 @@ export default function Header() {
               <img src="/images/logo.png" alt="Logo" className="h-20" />
             </Link>
             <nav className="hidden md:flex items-center gap-6">
-              <Link href="/urun" className="text-sm font-medium text-zinc-600 hover:text-foreground transition-colors">
+              <Link href="/urun" className="px-4 py-2 rounded-full text-sm font-medium text-foreground hover:bg-orange-500 hover:text-white dark:hover:bg-orange-500 transition-colors">
                 {t("header.product")}
               </Link>
-              <Link href="/ozellikler" className="text-sm font-medium text-zinc-600 hover:text-foreground transition-colors">
+              <Link href="/ozellikler" className="px-4 py-2 rounded-full text-sm font-medium text-foreground hover:bg-orange-500 hover:text-white dark:hover:bg-orange-500 transition-colors">
                 {t("header.features")}
               </Link>
-              <a href="/#fiyatlandirma" className="text-sm font-medium text-zinc-600 hover:text-foreground transition-colors">
+              <a href="/#fiyatlandirma" className="px-4 py-2 rounded-full text-sm font-medium text-foreground hover:bg-orange-500 hover:text-white dark:hover:bg-orange-500 transition-colors">
                 {t("header.pricing")}
               </a>
             </nav>
             <div className="flex items-center gap-2 md:gap-4">
-              <Link href="/login" className="px-4 py-2 rounded-full text-sm font-medium text-foreground hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+              <Link href="/login" className="px-4 py-2 rounded-full text-sm font-medium text-foreground hover:bg-orange-500 hover:text-white dark:hover:bg-orange-500 transition-colors">
                 {t("header.login")}
               </Link>
               <button className="bg-accent text-white px-6 py-2.5 rounded-full text-sm font-semibold shadow-lg hover:shadow-[0_0_20px_rgba(234,88,12,0.4)] hover:-translate-y-0.5 transition-all duration-300">
