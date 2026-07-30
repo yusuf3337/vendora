@@ -31,7 +31,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-12 lg:gap-10 items-center relative z-10">
           <div className="max-w-2xl space-y-6 text-center lg:text-left">
             <Badge variant="glow" className="animate-pulse">
-              <Sparkles className="w-3.5 h-3.5 mr-1.5" /> RESTORAN OTOMASYONUNDA YENİ STANDART!!!
+              <Sparkles className="w-3.5 h-3.5 mr-1.5" /> RESTORAN OTOMASYONUNDA YENİ STANDART
             </Badge>
 
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.08] text-zinc-900">
