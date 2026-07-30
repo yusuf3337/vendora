@@ -1,9 +1,11 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
-import { useEffect } from "react";
+import { X, PhoneCall, CheckCircle2 } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 interface CallbackModalProps {
   isOpen: boolean;
@@ -12,11 +14,12 @@ interface CallbackModalProps {
 
 export default function CallbackModal({ isOpen, onClose }: CallbackModalProps) {
   const { t } = useLanguage();
+  const [submitted, setSubmitted] = useState(false);
 
-  // Prevent body scroll when modal is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
+      setSubmitted(false);
     } else {
       document.body.style.overflow = "";
     }
@@ -24,6 +27,14 @@ export default function CallbackModal({ isOpen, onClose }: CallbackModalProps) {
       document.body.style.overflow = "";
     };
   }, [isOpen]);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+    setTimeout(() => {
+      onClose();
+    }, 2500);
+  };
 
   return (
     <AnimatePresence>
@@ -35,80 +46,115 @@ export default function CallbackModal({ isOpen, onClose }: CallbackModalProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 z-60 bg-black/60 backdrop-blur-sm"
+            className="fixed inset-0 z-60 bg-black/40 backdrop-blur-xs"
           />
 
           {/* Modal Content */}
           <div className="fixed inset-0 z-70 flex items-center justify-center p-4 pointer-events-none">
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
-              className="w-full max-w-md bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl shadow-2xl pointer-events-auto overflow-hidden relative"
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="w-full max-w-md bg-white border border-zinc-200 rounded-4xl shadow-2xl backdrop-blur-xl pointer-events-auto overflow-hidden relative text-zinc-900"
             >
               {/* Close Button */}
               <button
                 onClick={onClose}
-                className="absolute top-4 right-4 p-2 text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                className="absolute top-5 right-5 p-2 text-zinc-400 hover:text-zinc-900 transition-colors rounded-full bg-zinc-100"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4" />
               </button>
 
-              <div className="p-8">
-                <h3 className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-white">
-                  {t("modal.title")}
-                </h3>
-                <p className="mt-2 text-zinc-500 dark:text-zinc-400">
-                  {t("modal.subtitle")}
-                </p>
-
-                <form className="mt-6 space-y-4" onSubmit={(e) => e.preventDefault()}>
-                  <div className="space-y-1.5">
-                    <label htmlFor="cb-name" className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                      {t("modal.name")} <span className="text-accent">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      id="cb-name"
-                      required
-                      placeholder={t("modal.namePlaceholder")}
-                      className="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all text-zinc-900 dark:text-white"
-                    />
-                  </div>
-                  
-                  <div className="space-y-1.5">
-                    <label htmlFor="cb-phone" className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                      {t("modal.phone")} <span className="text-accent">*</span>
-                    </label>
-                    <input
-                      type="tel"
-                      id="cb-phone"
-                      required
-                      placeholder={t("modal.phonePlaceholder")}
-                      className="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all text-zinc-900 dark:text-white"
-                    />
-                  </div>
-                  
-                  <div className="space-y-1.5">
-                    <label htmlFor="cb-note" className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                      {t("modal.note")} <span className="text-zinc-400 dark:text-zinc-500 font-normal">{t("modal.noteOptional")}</span>
-                    </label>
-                    <input
-                      type="text"
-                      id="cb-note"
-                      placeholder={t("modal.notePlaceholder")}
-                      className="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all text-zinc-900 dark:text-white"
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    className="w-full mt-2 bg-foreground text-background px-5 py-3.5 rounded-xl font-medium hover:bg-zinc-800 transition-colors flex justify-center items-center"
+              <div className="p-8 md:p-10">
+                {submitted ? (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="text-center py-8 space-y-4"
                   >
-                    {t("modal.submit")}
-                  </button>
-                </form>
+                    <div className="w-16 h-16 bg-accent/15 border border-accent/30 rounded-full flex items-center justify-center mx-auto text-accent shadow-sm">
+                      <CheckCircle2 className="w-8 h-8" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-zinc-900">Talebiniz Alındı!</h3>
+                    <p className="text-sm text-zinc-600">
+                      Uzman ekibimiz en kısa sürede belirttiğiniz telefon numarasından sizinle iletişime geçecektir.
+                    </p>
+                  </motion.div>
+                ) : (
+                  <>
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-10 h-10 rounded-2xl bg-accent/15 border border-accent/30 flex items-center justify-center text-accent">
+                        <PhoneCall className="w-5 h-5" />
+                      </div>
+                      <h3 className="text-2xl font-bold tracking-tight text-zinc-900">
+                        {t("modal.title")}
+                      </h3>
+                    </div>
+
+                    <p className="text-sm text-zinc-600 mb-6 leading-relaxed">
+                      {t("modal.subtitle")}
+                    </p>
+
+                    <form className="space-y-4" onSubmit={handleSubmit}>
+                      <div className="space-y-1.5">
+                        <label
+                          htmlFor="cb-name"
+                          className="text-xs font-semibold text-zinc-700 uppercase tracking-wider"
+                        >
+                          {t("modal.name")} <span className="text-accent">*</span>
+                        </label>
+                        <Input
+                          type="text"
+                          id="cb-name"
+                          required
+                          placeholder={t("modal.namePlaceholder")}
+                        />
+                      </div>
+
+                      <div className="space-y-1.5">
+                        <label
+                          htmlFor="cb-phone"
+                          className="text-xs font-semibold text-zinc-700 uppercase tracking-wider"
+                        >
+                          {t("modal.phone")} <span className="text-accent">*</span>
+                        </label>
+                        <Input
+                          type="tel"
+                          id="cb-phone"
+                          required
+                          placeholder={t("modal.phonePlaceholder")}
+                        />
+                      </div>
+
+                      <div className="space-y-1.5">
+                        <label
+                          htmlFor="cb-note"
+                          className="text-xs font-semibold text-zinc-700 uppercase tracking-wider"
+                        >
+                          {t("modal.note")}{" "}
+                          <span className="text-zinc-400 font-normal">
+                            {t("modal.noteOptional")}
+                          </span>
+                        </label>
+                        <Input
+                          type="text"
+                          id="cb-note"
+                          placeholder={t("modal.notePlaceholder")}
+                        />
+                      </div>
+
+                      <Button
+                        type="submit"
+                        variant="glow"
+                        size="lg"
+                        className="w-full mt-4 font-semibold"
+                      >
+                        {t("modal.submit")}
+                      </Button>
+                    </form>
+                  </>
+                )}
               </div>
             </motion.div>
           </div>
